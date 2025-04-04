@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+:root {
+  --vermelho-bordo: #800020;
+  --cinza-suave: #ece4e4;  
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--cinza-suave); 
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.App {
+  text-align: center;
+  margin-top: 50px;
+}
+
+#chat-container {
+  width: 500px;
+  max-width: 600px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 550px;
+}
+
+#chat-header {
+  background-color: var(--vermelho-bordo);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+#chat-box {
+  padding: 20px;
+  height: calc(100% - 100px);
+  overflow-y: auto;
+  border-bottom: 1px solid #ddd;
+  background-color: #fafafa;
+}
+
+#chat-box .Usuário {
+  background-color: #cc3349; 
+  color: white;
+  align-self: flex-end;
+  text-align: left;
+  margin-left: auto;
+  padding: 10px 15px;
+  border-radius: 8px;
+  max-width: 80%;
+  word-wrap: break-word;
+  display: block;
+  margin-bottom: 10px; 
+}
+
+#chat-box .Sistema {
+  background-color: #e8eaf6; 
+  color: black;
+  align-self: flex-start;
+  text-align: left;
+  margin-right: auto;
+  padding: 10px 15px;
+  border-radius: 8px;
+  max-width: 80%;
+  word-wrap: break-word;
+  display: block; 
+  margin-bottom: 10px; 
+}
+
+#chat-box div {
+  width: 100%; 
+  display: flex;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.input-teclado {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid var(--vermelho-bordo);
+  border-radius: 6px;
+  outline: none;
+  text-transform: uppercase;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.input-teclado:focus {
+  border-color: #a7001b;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+}
+
+.btn-enviar {
+  margin-left: 8px;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: var(--vermelho-bordo);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-enviar:hover {
+  background-color: #870015;
+}
+
+.logo {
+  margin-top: 40px;
+  width: 300px; 
+  height: auto;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.numero-imagem {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 5px;
+  background-color: #fff;
+}
+
+.user-message {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end;
+}
+
+.system-message {
+  background-color: #e9ecef;
+  color: black;
+  align-self: flex-start;
+}
+
+button {
+  padding: 8px 15px;
+  margin-left: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.image-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.image-actions button,
+.image-actions a {
+  background-color: var(--vermelho-bordo);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.image-actions button:hover,
+.image-actions a:hover {
+  background-color: #a7001b;
+}
+
+.aux-images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.aux-imagem {
+  width: calc(50% - 10px); 
+  max-width: 120px;        
+  height: auto;
+  border: 1px solid #ccc;
+  padding: 4px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
