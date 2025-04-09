@@ -109,7 +109,7 @@ body {
   transform: scale(1.02);
 }
 
-.btn-enviar {
+.btn-enviar, .clip-button  {
   margin-left: 8px;
   padding: 10px 15px;
   font-size: 16px;
@@ -215,4 +215,8 @@ button:hover {
   background-color: #fff;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+.clip-button:hover {
+  background-color: #a02424;
 }

@@ -80,7 +80,7 @@ const Chat = () => {
                   <img src={imageUrl} alt="Número Cisterciense" className="numero-imagem" />
                   <div className="image-actions">
                     <button onClick={() => window.open(imageUrl, "_blank")}>
-                      🔍
+                    <i className="fas fa-search-plus"></i>
                     </button>
                     <button
                       className="image-button"
@@ -101,7 +101,7 @@ const Chat = () => {
                         }
                       }}
                     >
-                      ⬇️
+                      <i className="fas fa-download"></i>
                     </button>
                   </div>
 
@@ -126,16 +126,6 @@ const Chat = () => {
       </div>
 
       <div className="input-container">
-        <label htmlFor="upload-image" className="clip-button" title="Enviar imagem">
-          📎
-        </label>
-        <input
-          type="file"
-          id="upload-image"
-          style={{ display: "none" }}
-          accept="image/*"
-          onChange={(e) => handleImageUpload(e)}
-        />
         <input
           type="text"
           className="input-teclado"
@@ -144,11 +134,24 @@ const Chat = () => {
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
         />
+
+        <button className="clip-button" title="Enviar imagem">
+          <label htmlFor="upload-image" style={{ cursor: "pointer", margin: 0 }}>
+            <i className="fas fa-paperclip"></i>
+          </label>
+        </button>
+        <input
+          type="file"
+          id="upload-image"
+          style={{ display: "none" }}
+          accept="image/*"
+          onChange={(e) => handleImageUpload(e)}
+        />
+
         <button className="btn-enviar" onClick={handleSendMessage}>
           <i className="fas fa-paper-plane"></i> Enviar
         </button>
       </div>
-
     </div>
   );
 };
