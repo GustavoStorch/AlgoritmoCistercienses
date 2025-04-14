@@ -1,12 +1,13 @@
 import React from "react";
 import Chat from "./components/Chat";
-import logo from "../src/resources/catolica.png";
+import logo from "./assets/catolica.png";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <Chat />
-      <img src={logo} alt="Católica SC" className="logo"/>
+      <img src={logo} alt="Católica SC" className="logo" />
     </div>
   );
 }
