@@ -2,22 +2,69 @@ import React from "react";
 import "../App.css";
 
 const ImageMessage = ({ imageUrl, auxImages, numeroSolicitado }) => {
+  // const downloadImage = async () => {
+  //   try {
+  //     const response = await fetch(imageUrl);
+  //     const blob = await response.blob();
+  //     const url = window.URL.createObjectURL(blob);
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.download = `${numeroSolicitado}.png`;
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+  //     window.URL.revokeObjectURL(url);
+  //   } catch (error) {
+  //     alert("Erro ao baixar a imagem.");
+  //   }
+  // };
+
   const downloadImage = async () => {
     try {
-      const response = await fetch(imageUrl);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `${numeroSolicitado}.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
+      const image = new Image();
+      image.crossOrigin = "anonymous"; // Evita problemas com CORS
+      image.src = imageUrl;
+  
+      await new Promise((resolve, reject) => {
+        image.onload = resolve;
+        image.onerror = reject;
+      });
+  
+      const cropWidth = 93;
+      const cropHeight = 133;
+  
+      // Você pode ajustar a origem do recorte se quiser centralizar
+      const cropX = (image.width - cropWidth) / 2;
+      const cropY = (image.height - cropHeight) / 2;
+  
+      const canvas = document.createElement("canvas");
+      canvas.width = cropWidth;
+      canvas.height = cropHeight;
+      const ctx = canvas.getContext("2d");
+  
+      ctx.drawImage(
+        image,
+        cropX, cropY, cropWidth, cropHeight,  // recorte da imagem original
+        0, 0, cropWidth, cropHeight           // posição e tamanho no canvas
+      );
+  
+      canvas.toBlob((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${numeroSolicitado}_93x133.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }, "image/png");
+  
     } catch (error) {
-      alert("Erro ao baixar a imagem.");
+      alert("Erro ao baixar a imagem recortada.");
+      console.error(error);
     }
   };
+  
 
   return (
     <div className="image-container">

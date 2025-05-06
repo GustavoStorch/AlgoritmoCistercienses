@@ -10,7 +10,7 @@ from joblib import dump
 DIRETORIO_DATASET = os.path.join("static", "symbols", "dataset")
 
 def extrair_hu_moments(path_imagem):
-    img = cv2.imread(path_imagem, cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread(path_imagem, cv2.IMREAD_GRAYSCALE)  
     if img is None:
         print(f"[AVISO] Imagem inválida ou não carregada: {path_imagem}")
         return None

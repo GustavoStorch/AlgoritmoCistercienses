@@ -2,10 +2,12 @@ import cv2
 import numpy as np
 import os
 import sys
+import itertools
 from skimage.metrics import structural_similarity as ssim
 
 DIRETORIO_SIMBOLOS = r'C:\Estudos\Algoritmos Avançados - Martim\AlgoritmoCistercienses\API\static\symbols\output'
 TAMANHO_DESEJADO = (93, 133)  # Redimensionamento desejado
+
 
 def carregar_simbolos(tamanho=(128, 128)):
     simbolos = {}
@@ -58,6 +60,24 @@ def imagem_esta_no_padrao_correto(img_gray, limiar=127):
 def imagens_semelhantes(img1, img2):
     return ssim(img1, img2)
 
+def gerar_todas_composicoes_possiveis(simbolos, max_combinacoes=4):
+    composicoes = {}
+    valores = list(simbolos.keys())
+
+    for r in range(2, max_combinacoes + 1):  # combinações de 2 a 4 símbolos
+        for combinacao in itertools.combinations(valores, r):
+            soma_valor = sum(combinacao)
+            if soma_valor in simbolos or soma_valor in composicoes:
+                continue
+
+            img_combinada = simbolos[combinacao[0]]
+            for val in combinacao[1:]:
+                img_combinada = cv2.bitwise_or(img_combinada, simbolos[val])
+            
+            composicoes[soma_valor] = img_combinada
+
+    return composicoes
+
 def combinar_simbolos(simbolos):
     composicoes = {}
     valores = list(simbolos.keys())
@@ -96,7 +116,9 @@ def reconhecer_numero(caminho_imagem, tamanho=(128, 128), verbose=True):
             melhor_score = score
             melhor_valor = valor
 
-    composicoes = combinar_simbolos(simbolos)
+    # composicoes = combinar_simbolos(simbolos)
+    composicoes = gerar_todas_composicoes_possiveis(simbolos)
+
     for valor_combinado, img_combinada in composicoes.items():
         score = imagens_semelhantes(imagem_input, img_combinada)
         if verbose:
@@ -125,3 +147,78 @@ if __name__ == "__main__":
 
     reconhecido = reconhecer_numero(caminho_imagem_teste, tamanho=TAMANHO_DESEJADO)
     print(f"\nNúmero reconhecido: {reconhecido}")
+# import os
+# import cv2
+# import numpy as np
+# import sys
+# from joblib import load
+
+# # Caminhos
+# CAMINHO_MODELO = r'C:\Estudos\Algoritmos Avançados - Martim\AlgoritmoCistercienses\modelo_cisterciense.joblib'
+# TAMANHO_DESEJADO = (93, 133)
+
+# def carregar_e_processar_imagem(caminho_imagem, tamanho=(128, 128)):
+#     img = cv2.imread(caminho_imagem, cv2.IMREAD_UNCHANGED)
+
+#     if img is None:
+#         raise FileNotFoundError(f"Imagem não encontrada: {caminho_imagem}")
+
+#     if img.shape[-1] == 4:
+#         alpha_channel = img[:, :, 3]
+#         rgb_channels = img[:, :, :3]
+#         white_background = np.ones_like(rgb_channels, dtype=np.uint8) * 255
+#         alpha_factor = alpha_channel[:, :, np.newaxis] / 255.0
+#         img_rgb = rgb_channels * alpha_factor + white_background * (1 - alpha_factor)
+#         img = img_rgb.astype(np.uint8)
+
+#     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+#     media_brilho = np.mean(img_gray)
+
+#     if media_brilho > 127:
+#         _, img_bin = cv2.threshold(img_gray, 127, 255, cv2.THRESH_BINARY_INV)
+#     else:
+#         _, img_bin = cv2.threshold(img_gray, 127, 255, cv2.THRESH_BINARY)
+
+#     img_resized = cv2.resize(img_bin, tamanho, interpolation=cv2.INTER_NEAREST)
+#     return img_resized
+
+# def extrair_hu_moments(img_bin):
+#     contornos, _ = cv2.findContours(img_bin, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+#     if not contornos:
+#         return None
+#     maior = max(contornos, key=cv2.contourArea)
+#     hu = cv2.HuMoments(cv2.moments(maior)).flatten()
+#     return -np.sign(hu) * np.log10(np.abs(hu) + 1e-10)
+
+# def reconhecer_com_modelo(caminho_imagem, tamanho=(128, 128)):
+#     if not os.path.exists(CAMINHO_MODELO):
+#         print(f"[ERRO] Modelo não encontrado: {CAMINHO_MODELO}")
+#         return None
+
+#     modelo = load(CAMINHO_MODELO)
+
+#     img = carregar_e_processar_imagem(caminho_imagem, tamanho)
+#     hu = extrair_hu_moments(img)
+
+#     if hu is None:
+#         print("⚠️ Nenhum contorno detectado. Não foi possível extrair os momentos.")
+#         return None
+
+#     pred = modelo.predict([hu])
+#     print(f"\n✅ Número reconhecido pelo modelo: {pred[0]}")
+#     return pred[0]
+
+# if __name__ == "__main__":
+#     if len(sys.argv) < 2:
+#         print("Uso: python main_modelo_hu.py caminho_da_imagem")
+#         sys.exit(1)
+
+#     caminho_imagem_teste = sys.argv[1]
+
+#     if not os.path.exists(caminho_imagem_teste):
+#         print(f"❌ Caminho inválido: {caminho_imagem_teste}")
+#         sys.exit(1)
+
+#     reconhecido = reconhecer_com_modelo(caminho_imagem_teste, tamanho=TAMANHO_DESEJADO)
+#     print(f"Número reconhecido: {reconhecido}")
