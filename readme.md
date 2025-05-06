@@ -79,66 +79,102 @@ Apesar de não serem utilizados em cálculos matemáticos, esses numerais foram 
 │   │   └── index.js             # Ponto de entrada do React
 └── README.md                    # Documentação do projeto
 
-Como Executar o Projeto
+```
+
+---
+
+## Como Executar o Projeto
+
 Para executar o projeto, é necessário iniciar tanto o backend (API) quanto o frontend. Utilize dois terminais separados para isso.
 
-Pré-requisitos
-Python 3.12
+### Pré-requisitos
 
-Node.js 18.12.0 e npm
+- **Python 3.12**
+- **Node.js 18.12.0** e **npm**
 
-Passo 1: Clonar o Repositório
-bash
-Copiar
-Editar
+---
+
+### Passo 1: Clonar o Repositório
+
+```bash
 git clone https://github.com/seu-usuario/seu-repositorio.git
 cd seu-repositorio
-Passo 2: Configurar e Iniciar o Backend (API)
+
+```
+
+---
+
+### Passo 2: Configurar e Iniciar o Backend (API)
+
 Navegue até o diretório da API:
 
-bash
-Copiar
-Editar
+```bash
 cd API
+
+```
+
 Crie e ative um ambiente virtual:
 
-bash
-Copiar
-Editar
+```bash
+#Linux/Mac
 python -m venv venv
-source venv/bin/activate  # Para Linux/Mac
-venv\Scripts\activate     # Para Windows
+source venv/bin/active
+
+#windows
+python -m venv venv
+venv/Scripts/active
+
+```
+
 Instale as dependências:
 
-bash
-Copiar
-Editar
+```bash
 pip install -r requirements.txt
+
+```
+
 Inicie a aplicação Flask:
 
-bash
-Copiar
-Editar
+```bash
 python main.py
-A API estará disponível em http://localhost:5000.
 
-Passo 3: Configurar e Iniciar o Frontend
+```
+
+A API estará disponível em: http://localhost:5000
+
+---
+
+### Passo 3: Configurar e Iniciar o FrontEnd
+
 Abra um novo terminal e navegue até o diretório do frontend:
 
-bash
-Copiar
-Editar
-cd FrontEnd
+```bash
+cd frontend
+
+```
+
 Instale as dependências:
 
-bash
-Copiar
-Editar
+```bash
 npm install
-Inicie a aplicação React:
 
-bash
-Copiar
-Editar
+```
+
+Inicie a aplicação REACT:
+
+```bash
 npm start
-A aplicação estará disponível em http://localhost:3000.
+
+```
+
+A aplicação estará disponível em: http://localhost:3000
+
+### Como utilizar o sistema
+
+A utilização do sistema se da por meio de um simples chat. Caso queira saber como seria um número no formato Cisterciense, basta informar o número e enviar.
+
+![image](https://github.com/user-attachments/assets/2da4a950-291c-4cf5-b0f5-44318c7055b2)
+
+Também é possível informar uma imagem clicando no botão de clips, e então o sistema vai retornar o número correspondente a ele.
+
+![image](https://github.com/user-attachments/assets/81f2fede-df0d-4104-9c7e-c9a20928ffc9)
