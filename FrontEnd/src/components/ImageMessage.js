@@ -2,27 +2,10 @@ import React from "react";
 import "../App.css";
 
 const ImageMessage = ({ imageUrl, auxImages, numeroSolicitado }) => {
-  // const downloadImage = async () => {
-  //   try {
-  //     const response = await fetch(imageUrl);
-  //     const blob = await response.blob();
-  //     const url = window.URL.createObjectURL(blob);
-  //     const link = document.createElement("a");
-  //     link.href = url;
-  //     link.download = `${numeroSolicitado}.png`;
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     document.body.removeChild(link);
-  //     window.URL.revokeObjectURL(url);
-  //   } catch (error) {
-  //     alert("Erro ao baixar a imagem.");
-  //   }
-  // };
-
   const downloadImage = async () => {
     try {
       const image = new Image();
-      image.crossOrigin = "anonymous"; // Evita problemas com CORS
+      image.crossOrigin = "anonymous"; 
       image.src = imageUrl;
   
       await new Promise((resolve, reject) => {
@@ -33,7 +16,6 @@ const ImageMessage = ({ imageUrl, auxImages, numeroSolicitado }) => {
       const cropWidth = 93;
       const cropHeight = 133;
   
-      // Você pode ajustar a origem do recorte se quiser centralizar
       const cropX = (image.width - cropWidth) / 2;
       const cropY = (image.height - cropHeight) / 2;
   
@@ -44,8 +26,8 @@ const ImageMessage = ({ imageUrl, auxImages, numeroSolicitado }) => {
   
       ctx.drawImage(
         image,
-        cropX, cropY, cropWidth, cropHeight,  // recorte da imagem original
-        0, 0, cropWidth, cropHeight           // posição e tamanho no canvas
+        cropX, cropY, cropWidth, cropHeight,  
+        0, 0, cropWidth, cropHeight           
       );
   
       canvas.toBlob((blob) => {

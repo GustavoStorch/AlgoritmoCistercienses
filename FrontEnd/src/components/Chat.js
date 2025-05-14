@@ -14,38 +14,6 @@ const Chat = () => {
   const [numeroSolicitado, setNumeroSolicitado] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const handleSendMessage = async () => {
-  //   if (input.trim() !== "" && !isNaN(input)) {
-  //     const numero = parseInt(input, 10);
-  //     setNumeroSolicitado(numero);
-  //     setMessages([{ sender: "Usuário", text: input }]);
-  //     setInput("");
-  //     try {
-  //       const data = await gerarNumero(numero);
-  //       if (data.imagem_principal) {
-  //         setImageUrl(obterImagem(data.imagem_principal) + `?t=${Date.now()}`);
-  //         setAuxImages(data.imagens_auxiliares.map((nome) => obterImagem(nome)));
-  //         setMessages([
-  //           { sender: "Usuário", text: input },
-  //           { sender: "Sistema", text: "" }
-  //         ]);
-  //       } else {
-  //         setMessages([
-  //           { sender: "Usuário", text: input },
-  //           { sender: "Sistema", text: "Erro ao gerar a imagem." }
-  //         ]);
-  //       }
-  //     } catch (error) {
-  //       setMessages([
-  //         { sender: "Usuário", text: input },
-  //         { sender: "Sistema", text: "Falha ao conectar com a API." }
-  //       ]);
-  //     }
-  //   } else {
-  //     setMessages([{ sender: "Sistema", text: "Por favor, digite um número válido." }]);
-  //   }
-  // };
-
   const handleSendMessage = async () => {
     if (input.trim() !== "" && !isNaN(input)) {
       const numero = parseInt(input, 10);
@@ -81,60 +49,13 @@ const Chat = () => {
     }
   };
   
-
-  // const handleImageUpload = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     setMessages([]);
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       const imageBase64 = reader.result;
-  //       setMessages((prev) => [
-  //         ...prev,
-  //         {
-  //           sender: "Usuário",
-  //           text: "Imagem enviada:",
-  //           image: imageBase64,
-  //         },
-  //       ]);
-  //     };
-  //     reader.readAsDataURL(file);
-  //     try {
-  //       const data = await reconhecerNumero(file);
-  //       if (data.numero_reconhecido !== undefined) {
-  //         setMessages((prev) => [
-  //           ...prev,
-  //           {
-  //             sender: "Sistema",
-  //             text: `Esse símbolo é referente ao número ${data.numero_reconhecido}`,
-  //           },
-  //         ]);
-  //       } else {
-  //         setMessages((prev) => [
-  //           ...prev,
-  //           {
-  //             sender: "Sistema",
-  //             text: "Não foi possível reconhecer o número.",
-  //           },
-  //         ]);
-  //       }
-  //     } catch (error) {
-  //       console.error("Erro ao enviar imagem:", error);
-  //       setMessages((prev) => [
-  //         ...prev,
-  //         {
-  //           sender: "Sistema",
-  //           text: "Erro ao processar a imagem.",
-  //         },
-  //       ]);
-  //     }
-  //   }
-  // };
-
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
       setMessages([]);
+      setImageUrl(null);
+      setAuxImages([]);
+      setNumeroSolicitado(null);
       const reader = new FileReader();
       reader.onload = () => {
         const imageBase64 = reader.result;
@@ -149,7 +70,7 @@ const Chat = () => {
       };
       reader.readAsDataURL(file);
   
-      setIsLoading(true); // <-- MOSTRAR LOADING AQUI
+      setIsLoading(true);
       try {
         const data = await reconhecerNumero(file);
         if (data.numero_reconhecido !== undefined) {
@@ -179,7 +100,7 @@ const Chat = () => {
           },
         ]);
       } finally {
-        setIsLoading(false); // <-- ESCONDER LOADING AQUI
+        setIsLoading(false); 
       }
     }
   };

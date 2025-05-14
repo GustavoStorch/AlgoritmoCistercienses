@@ -77,4 +77,4 @@ print(classification_report(y_test, y_pred))
 
 # Salvar modelo
 dump(modelo, "modelo_cisterciense.joblib")
-print("✅ Modelo salvo como modelo_cisterciense.joblib")
+print("Modelo salvo como modelo_cisterciense.joblib")
