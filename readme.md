@@ -175,6 +175,6 @@ A utilização do sistema se da por meio de um simples chat. Caso queira saber c
 
 ![image](https://github.com/user-attachments/assets/2da4a950-291c-4cf5-b0f5-44318c7055b2)
 
-Também é possível informar uma imagem clicando no botão de clips, e então o sistema vai retornar o número correspondente a ele.
+Também é possível informar uma imagem clicando no botão de clips, e então o sistema vai retornar o número correspondente a ele. **(Vale ressaltar que é possível solicitar a geração de uma imagem, baixar ela e enviar essa novamente, demais imagens adquiridas de outra maneira deve-se verificar o tamanho delas para uma maior percentual de acertividade (93x133))**
 
 ![image](https://github.com/user-attachments/assets/81f2fede-df0d-4104-9c7e-c9a20928ffc9)
